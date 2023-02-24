@@ -3,6 +3,7 @@ package users
 import (
 	"github.com/gofiber/fiber/v2"
 	"go.architecture/core/configs"
+	"go.architecture/core/helpers"
 	"go.architecture/core/models"
 )
 
@@ -31,13 +32,17 @@ func Create(ctx *fiber.Ctx) error {
 			"error":   err.Error(),
 		})
 	}
-	userModel := models.Users{
-		Name:     userRequest.Name,
-		Surname:  userRequest.Surname,
-		Email:    userRequest.Email,
-		Age:      userRequest.Age,
-		Password: userRequest.Password,
-	}
+	// Create the user in the database Version 1
+	//userModel := models.Users{
+	//	Name:     userRequest.Name,
+	//	Surname:  userRequest.Surname,
+	//	Email:    userRequest.Email,
+	//	Age:      userRequest.Age,
+	//	Password: userRequest.Password,
+	//}
+	// Create the user in the database Version 2 (using helpers.Spread)
+	userModel := models.Users{}
+	helpers.Spread(userRequest, &userModel)
 	result := configs.DBM.Create(&userModel)
 	if result.Error != nil {
 		return ctx.Status(fiber.StatusBadRequest).JSON(fiber.Map{
