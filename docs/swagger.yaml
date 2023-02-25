@@ -1,0 +1,197 @@
+basePath: /
+definitions:
+  exceptions.HTTPError:
+    properties:
+      message:
+        type: string
+      status:
+        type: integer
+    type: object
+  interfaces.SuccessResponse:
+    properties:
+      data: {}
+      message:
+        type: string
+    type: object
+  models.UsersDSO:
+    properties:
+      age:
+        type: integer
+      email:
+        type: string
+      name:
+        type: string
+      password:
+        type: string
+      surname:
+        type: string
+    type: object
+  models.UsersDTO:
+    properties:
+      age:
+        type: integer
+      created_at:
+        type: string
+      email:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      surname:
+        type: string
+      updated_at:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact:
+    email: heydar.shukurov@gmail.com
+    name: Heydar Shukurov
+  description: Seeder application for future applications
+  title: Seeder API
+  version: 1.0.0
+paths:
+  /api/v1/users:
+    delete:
+      consumes:
+      - application/json
+      description: Gets ID and deletes user
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/interfaces.SuccessResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/exceptions.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/exceptions.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/exceptions.HTTPError'
+      summary: Delete User by id
+      tags:
+      - User
+    get:
+      consumes:
+      - application/json
+      description: Get all users
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/interfaces.SuccessResponse'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/models.UsersDTO'
+                  type: array
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/exceptions.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/exceptions.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/exceptions.HTTPError'
+      summary: Get list of users
+      tags:
+      - User
+    post:
+      consumes:
+      - application/json
+      description: Creates a new user
+      parameters:
+      - description: query params
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/models.UsersDSO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            allOf:
+            - $ref: '#/definitions/interfaces.SuccessResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/models.UsersDSO'
+              type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/exceptions.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/exceptions.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/exceptions.HTTPError'
+      summary: Post Add new user
+      tags:
+      - User
+    put:
+      consumes:
+      - application/json
+      description: Gets ID and updates user
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: query params
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/models.UsersDSO'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/interfaces.SuccessResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/exceptions.HTTPError'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/exceptions.HTTPError'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/exceptions.HTTPError'
+      summary: Update User by id
+      tags:
+      - User
+swagger: "2.0"
