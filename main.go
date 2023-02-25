@@ -20,7 +20,7 @@ import (
 func main() {
 	err := godotenv.Load(".env")
 	if err != nil {
-		log.Fatal("Error loading .env file")
+		log.Fatal("Error loading .env files")
 	}
 	app := fiber.New(configs.Server())
 	app.Use(configs.LogConfig())
@@ -31,5 +31,5 @@ func main() {
 	routes.Router(app)
 	configs.Monitor(app)
 	configs.Swagger(app)
-	log.Fatal(app.Listen(":" + os.Getenv("PORT")))
+	log.Fatal(app.Listen(os.Getenv("APP_URL") + os.Getenv("PORT")))
 }
