@@ -15,13 +15,7 @@ func main() {
 	if err != nil {
 		log.Fatal("Error loading .env file")
 	}
-	app := fiber.New(fiber.Config{
-		Prefork:       true,
-		CaseSensitive: true,
-		StrictRouting: true,
-		ServerHeader:  "Fiber",
-		AppName:       "Test App v1.0.1",
-	})
+	app := fiber.New(configs.Server())
 	app.Use(cors.New())
 	app.Static("/", "./public")
 	configs.Database()
