@@ -1,3 +1,5 @@
 .env
 .idea
 go.sum
+.vscode
+.vscode-test
