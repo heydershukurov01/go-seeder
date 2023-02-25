@@ -15,15 +15,13 @@ type Users struct {
 	Password string
 }
 type UsersDTO struct {
-	ID        uint           `json:"id"`
-	Name      string         `json:"name"`
-	Surname   string         `json:"surname"`
-	Age       int            `json:"age"`
-	Email     string         `json:"email"`
-	Password  string         `json:"password"`
-	CreatedAt time.Time      `json:"created_at"`
-	UpdatedAt time.Time      `json:"updated_at"`
-	DeletedAt gorm.DeletedAt `json:"deleted_at"`
+	ID        uint      `json:"id"`
+	Name      string    `json:"name"`
+	Surname   string    `json:"surname"`
+	Age       int       `json:"age"`
+	Email     string    `json:"email"`
+	CreatedAt time.Time `json:"created_at"`
+	UpdatedAt time.Time `json:"updated_at"`
 }
 type UsersDSO struct {
 	Name     string `json:"name"`

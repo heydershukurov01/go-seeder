@@ -7,12 +7,20 @@ import (
 )
 
 func Router(app *fiber.App) {
-	app.Get("", func(ctx *fiber.Ctx) error {
+	app.Get("users", func(ctx *fiber.Ctx) error {
 		defer exceptions.ErrorHandler(ctx)
 		return users.List(ctx)
 	})
-	app.Post("", func(ctx *fiber.Ctx) error {
+	app.Post("users", func(ctx *fiber.Ctx) error {
 		defer exceptions.ErrorHandler(ctx)
 		return users.Create(ctx)
+	})
+	app.Put("users/:id", func(ctx *fiber.Ctx) error {
+		defer exceptions.ErrorHandler(ctx)
+		return users.Update(ctx)
+	})
+	app.Delete("users/:id", func(ctx *fiber.Ctx) error {
+		defer exceptions.ErrorHandler(ctx)
+		return users.Delete(ctx)
 	})
 }
